@@ -1,4 +1,4 @@
-const API_URL = 'https://ws.audioscrobbler.com/2.0/';
+const API_URL = 'https://corsproxy.io/?https://ws.audioscrobbler.com/2.0/';
 const API_KEY = '9a14a71906232bc96ebb2d797f20f3dd';
 
 let cards = [];
