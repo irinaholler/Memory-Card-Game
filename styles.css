@@ -128,12 +128,12 @@ header {
 .game-board {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-gap: 15px;
   justify-content: center;
-  margin-top: 20px;
+  grid-gap: 20px;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 10px;
+  overflow: auto; /* Allow scrolling if content overflows */
 }
 
 .card {
@@ -147,18 +147,6 @@ header {
   perspective: 1000px;
 }
 
-/* Responsive for mobile */
-@media (max-width: 600px) {
-  .game-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .game-board {
-    grid-template-columns: repeat(4, 1fr); /* 2 cards per row for small screens */
-  }
-}
-
 .card.flipped {
   transform: rotateY(180deg);
 }
@@ -167,7 +155,7 @@ header {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
+  /* position: absolute; */
   backface-visibility: hidden;
 }
 
@@ -185,8 +173,10 @@ header {
   transform: rotateY(180deg);
 }
 
+
+
 /* Media Queries for Responsiveness */
-@media (max-width: 768px) {
+@media (min-width: 601px) and (max-width: 900px) {
   body {
     padding: 0 20px;
   }
@@ -208,7 +198,7 @@ header {
   }
   .game-btn {
       padding: 12px 24px;
-      font-size: 1rem; /* Smaller button for tablets */
+      font-size: 1rem; 
   }
   .game-board {
     grid-template-columns: repeat(4, 1fr);
@@ -218,6 +208,13 @@ header {
   .card {
     width: 100px;
     height: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-container {
+    flex-direction: column;
+    align-items: center;
   }
 }
 

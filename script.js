@@ -21,14 +21,14 @@ async function fetchAlbumImages() {
         const response = await fetch(`${API_URL}?method=album.search&album=${randomTerm}&api_key=${API_KEY}&format=json`);
         const data = await response.json();
         
-        const albums = data.results.albummatches.album.slice(0, 8); // Get only 8 albums
+        const albums = data.results.albummatches.album.slice(0, 10); // Get only 10 albums
 
         const images = albums
             .map(album => album.image.find(img => img.size === 'medium')?.['#text'])
             .filter(imageUrl => imageUrl); // Filter out any empty or undefined image URLs
         
         // If not enough images, throw an error
-        if (images.length < 8) {
+        if (images.length < 10) {
             throw new Error("Not enough images fetched.");
         }
 
@@ -96,7 +96,7 @@ function checkForMatch() {
     if (firstImage === secondImage) {
         matchedPairs++;
         resetCards();
-        if (matchedPairs === 8) {
+        if (matchedPairs === 10) {
             clearInterval(timeInterval);
             alert('Congratulations! You matched all pairs!');
         }
