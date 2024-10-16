@@ -127,7 +127,7 @@ header {
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 15px;
   justify-content: center;
   margin-top: 20px;
@@ -226,7 +226,10 @@ header {
     padding: 0 15px;
   }
   header .logo p {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
+  }
+  .logo p span {
+    font-size: 1.5rem;
   }
   .info {
       flex-direction: column; /* Stack time and score vertically */
