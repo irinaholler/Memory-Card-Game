@@ -18,10 +18,6 @@ html, body {
   padding: 0;
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-
-  @media (min-width: 481px) and (max-width: 767px) {
-    font-size: 1.2rem;
-  }
 }
 
 body {
@@ -56,12 +52,6 @@ header {
   font-weight: bold; 
   color: #190a05;
   text-shadow: 0 0 10px #ffffff, 0 0 20px #ff0000, 0 0 30px #870000;
-}
-
-@media only screen and (max-width: 480px) {
-  .logo {
-    width: 90%;
-  }
 }
 
 /* Game Info */
@@ -157,7 +147,6 @@ header {
   perspective: 1000px;
 }
 
-/* Responsive adjustments */
 /* Responsive for mobile */
 @media (max-width: 600px) {
   .game-container {
@@ -198,44 +187,64 @@ header {
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
-  header .logo p {
-      font-size: 1.5rem; /* Smaller logo on tablets */
+  body {
+    padding: 0 20px;
   }
-
+  header .logo p {
+      font-size: 1.5rem;
+  }
   .game-info {
       padding: 0 10px;
   }
-
+  .logo p span {
+    font-size: 1.5rem;
+  }
   .info {
       padding: 10px 20px; /* Reduce padding for smaller screens */
       font-size: 1rem; /* Smaller font size for info */
   }
-
   #time, #score {
       font-size: 1rem;
   }
-
   .game-btn {
       padding: 12px 24px;
       font-size: 1rem; /* Smaller button for tablets */
   }
+  .game-board {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 15px;
+    padding: 15px;
+  }
+  .card {
+    width: 90px;
+    height: 90px;
+  }
 }
 
 @media (max-width: 480px) {
-  header .logo p {
-      font-size: 1.2rem; /* Even smaller logo for phones */
+  body {
+    padding: 0 15px;
   }
-
+  header .logo p {
+      font-size: 1.2rem;
+  }
   .info {
       flex-direction: column; /* Stack time and score vertically */
       text-align: left;
       padding: 10px 15px;
       font-size: 0.9rem; /* Smaller font for mobile */
   }
-
   .game-btn {
       padding: 10px 20px;
       font-size: 0.9rem; /* Smaller button for mobile */
+  }
+  .game-board {
+    margin-top: 15px;
+    padding: 15px;
+  }
+  .card {
+    width: 80px;
+    height: 80px;
   }
 }
 
