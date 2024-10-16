@@ -191,13 +191,13 @@ header {
     padding: 0 20px;
   }
   header .logo p {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
   }
   .game-info {
       padding: 0 10px;
   }
   .logo p span {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
   .info {
       padding: 10px 20px; /* Reduce padding for smaller screens */
@@ -211,13 +211,13 @@ header {
       font-size: 1rem; /* Smaller button for tablets */
   }
   .game-board {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     margin-top: 15px;
     padding: 15px;
   }
   .card {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
   }
 }
 
