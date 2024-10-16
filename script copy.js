@@ -13,41 +13,25 @@ let matchedPairs = 0;
 const randomSearchTerms = ['believe', 'greatest', 'love', 'sun', 'night', 'dream', 'world', 'light', 'fire', 'magic'];
 
 async function fetchAlbumImages() {
-    try {
-        // Pick a random search term from the list
-        const randomTerm = randomSearchTerms[Math.floor(Math.random() * randomSearchTerms.length)];
+    const response = await fetch(`${API_URL}?method=album.search&album=believe&api_key=${API_KEY}&format=json`);
+    const data = await response.json();
+    console.log(data); // Check if data is coming through
 
-        //JSON: /2.0/?method=chart.gettoptracks&api_key=YOUR_API_KEY&format=json
-        const response = await fetch(`${API_URL}?method=album.search&album=${randomTerm}&api_key=${API_KEY}&format=json`);
-        const data = await response.json();
-        
-        const albums = data.results.albummatches.album.slice(0, 8); // Get only 8 albums
+    // Pick a random search term from the list
+    const randomTerm = randomSearchTerms[Math.floor(Math.random() * randomSearchTerms.length)];
 
-        const images = albums
-            .map(album => album.image.find(img => img.size === 'medium')?.['#text'])
-            .filter(imageUrl => imageUrl); // Filter out any empty or undefined image URLs
-        
-        // If not enough images, throw an error
-        if (images.length < 8) {
-            throw new Error("Not enough images fetched.");
-        }
+    const albums = data.results.albummatches.album.slice(0, 8); // Get only 8 albums
+    const images = albums.map(album => album.image.find(img => img.size === 'medium')['#text']); // Get medium-size album images
 
-        // Shuffle the images to randomize their order
-        shuffle(images);
+    // Shuffle the images to randomize their order
+    shuffle(images);
 
-        return images;
-    } catch (error) {
-        console.error("Failed to fetch album images:", error);
-        alert("Error fetching album images. Please try again later.");
-        return []; // Return empty array on error
-    }
+    return images;
 }
 
 // Initialize game
 async function initGame() {
     const images = await fetchAlbumImages();
-    if (images.length === 0) return; // Don't proceed if no images were fetched
-
     const allImages = [...images, ...images]; // Duplicate images for matching
     shuffle(allImages);
 
@@ -65,6 +49,7 @@ function shuffle(array) {
 
 // Create card elements
 function createCard(image, container) {
+    console.log(image); // Check if the image URL is correct
     const card = document.createElement('div');
     card.classList.add('card');
     card.innerHTML = `
@@ -126,6 +111,8 @@ function startTimer() {
         document.getElementById('time').textContent = `Time: ${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }, 1000);
 }
+
+// If the API sometimes returns empty image URLs
 
 // Reset game
 function resetGame() {
