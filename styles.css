@@ -176,7 +176,7 @@ header {
 
 
 /* Media Queries for Responsiveness */
-@media (min-width: 601px) and (max-width: 900px) {
+@media  (max-width: 768px) {
   body {
     padding: 0 20px;
   }
@@ -190,8 +190,8 @@ header {
     font-size: 1.8rem;
   }
   .info {
-      padding: 10px 20px; /* Reduce padding for smaller screens */
-      font-size: 1rem; /* Smaller font size for info */
+      padding: 10px 20px;
+      font-size: 1rem;
   }
   #time, #score {
       font-size: 1rem;
@@ -200,18 +200,22 @@ header {
       padding: 12px 24px;
       font-size: 1rem; 
   }
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+  }
   .game-board {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     margin-top: 15px;
     padding: 15px;
   }
   .card {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 667px) {
   .game-container {
     flex-direction: column;
     align-items: center;
