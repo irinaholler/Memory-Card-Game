@@ -220,6 +220,11 @@ header {
     flex-direction: column;
     align-items: center;
   }
+  .game-board {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 15px;
+    padding: 15px;
+  }
 }
 
 @media (max-width: 480px) {
