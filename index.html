@@ -1,43 +1,73 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memory Card Game</title>
-    <!-- Link to CSS -->
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" href="./img/lastfm_avatar_twitter.52a5d69a85ac.png" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header>
-      <div class="logo">
-        <p>MemoryCard<span>Game</span></p>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Card Game</title>
+  <!-- Link to CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="./img/lastfm_avatar_twitter.52a5d69a85ac.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Righteous&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <p>Memory<span>Match</span></p>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="stats-panel">
+      <h2>Statistics</h2>
+      <div class="stats-content">
+        <div class="stat-item">
+          <span class="stat-icon">🏆</span>
+          <div class="stat-info">
+            <span class="stat-label">Best Time</span>
+            <span class="stat-value" id="best-time">--:--</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">⭐</span>
+          <div class="stat-info">
+            <span class="stat-label">Best Score</span>
+            <span class="stat-value" id="best-score">0</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🎮</span>
+          <div class="stat-info">
+            <span class="stat-label">Games Played</span>
+            <span class="stat-value" id="games-played">0</span>
+          </div>
+        </div>
       </div>
-    </header>
+    </div>
 
     <div class="game-container">
       <div class="game-info">
         <div class="info">
           <p id="time">
-            <span class="label">Time:</span> <span class="value">00:00</span>
+            <span class="label">⏱️ Time</span> <span class="value">00:00</span>
           </p>
           <p id="score">
-            <span class="label">Score:</span> <span class="value">0</span>
+            <span class="label">🎯 Score</span> <span class="value">0</span>
           </p>
         </div>
-        <button id="reset-btn" class="game-btn">Reset Game</button>
+        <button id="reset-btn" class="game-btn">🔄 New Game</button>
       </div>
 
       <div id="game-board" class="game-board"></div>
     </div>
+  </div>
 
-    <!-- Link to JavaScript -->
-    <script src="script.js"></script>
-  </body>
+  <!-- Link to JavaScript -->
+  <script src="script.js"></script>
+</body>
+
 </html>

@@ -1,3 +1,4 @@
+// constants
 const API_URL = 'https://corsproxy.io/?https://ws.audioscrobbler.com/2.0/';
 const API_KEY = '9a14a71906232bc96ebb2d797f20f3dd';
 
@@ -8,62 +9,90 @@ let score = 0;
 let timeInterval;
 let seconds = 0;
 let matchedPairs = 0;
+let gamesPlayed = 0;
+let bestTime = Infinity;
+let bestScore = 0;
 
-// Fetch album images
 const randomSearchTerms = ['believe', 'greatest', 'love', 'sun', 'night', 'dream', 'world', 'light', 'fire', 'magic'];
 
+// Fetch album images
 async function fetchAlbumImages() {
     try {
-        // Pick a random search term from the list
         const randomTerm = randomSearchTerms[Math.floor(Math.random() * randomSearchTerms.length)];
-
-        //JSON: /2.0/?method=chart.gettoptracks&api_key=YOUR_API_KEY&format=json
         const response = await fetch(`${API_URL}?method=album.search&album=${randomTerm}&api_key=${API_KEY}&format=json`);
         const data = await response.json();
-        
-        const albums = data.results.albummatches.album.slice(0, 10); // Get only 10 albums
+
+        const albums = data.results.albummatches.album.slice(0, 8);
 
         const images = albums
             .map(album => album.image.find(img => img.size === 'medium')?.['#text'])
-            .filter(imageUrl => imageUrl); // Filter out any empty or undefined image URLs
-        
-        // If not enough images, throw an error
-        if (images.length < 10) {
+            .filter(imageUrl => imageUrl);
+
+        if (images.length < 8) {
             throw new Error("Not enough images fetched.");
         }
 
-        // Shuffle the images to randomize their order
         shuffle(images);
-
         return images;
     } catch (error) {
         console.error("Failed to fetch album images:", error);
         alert("Error fetching album images. Please try again later.");
-        return []; // Return empty array on error
+        return [];
     }
 }
 
-// Initialize game
+function loadStats() {
+    const savedStats = localStorage.getItem('memoryGameStats');
+    if (savedStats) {
+        const stats = JSON.parse(savedStats);
+        gamesPlayed = stats.gamesPlayed || 0;
+        bestTime = stats.bestTime || Infinity;
+        bestScore = stats.bestScore || 0;
+        updateStatsDisplay();
+    }
+}
+
+function saveStats() {
+    const stats = {
+        gamesPlayed,
+        bestTime,
+        bestScore
+    };
+    localStorage.setItem('memoryGameStats', JSON.stringify(stats));
+}
+
+function updateStatsDisplay() {
+    document.getElementById('games-played').textContent = gamesPlayed;
+    document.getElementById('best-score').textContent = bestScore;
+
+    if (bestTime === Infinity) {
+        document.getElementById('best-time').textContent = '--:--';
+    } else {
+        const mins = Math.floor(bestTime / 60);
+        const secs = bestTime % 60;
+        document.getElementById('best-time').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+}
+
 async function initGame() {
     const images = await fetchAlbumImages();
-    if (images.length === 0) return; // Don't proceed if no images were fetched
+    if (images.length === 0) return;
 
-    const allImages = [...images, ...images]; // Duplicate images for matching
+    const allImages = [...images, ...images];
     shuffle(allImages);
 
     const gameBoard = document.getElementById('game-board');
-    gameBoard.innerHTML = ''; // Clear board
+    gameBoard.innerHTML = '';
     allImages.forEach(img => createCard(img, gameBoard));
-    
+
     resetGame();
+    startTimer();
 }
 
-// Shuffle array
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
 }
 
-// Create card elements
 function createCard(image, container) {
     const card = document.createElement('div');
     card.classList.add('card');
@@ -75,9 +104,8 @@ function createCard(image, container) {
     card.addEventListener('click', () => handleCardClick(card));
 }
 
-// Handle card click
 function handleCardClick(card) {
-    if (card.classList.contains('flipped') || secondCard) return; // Prevent clicking a flipped card
+    if (card.classList.contains('flipped') || secondCard) return;
 
     card.classList.add('flipped');
     if (!firstCard) {
@@ -88,16 +116,22 @@ function handleCardClick(card) {
     }
 }
 
-// Check if the cards match
 function checkForMatch() {
     const firstImage = firstCard.querySelector('img').src;
     const secondImage = secondCard.querySelector('img').src;
-    
+
     if (firstImage === secondImage) {
         matchedPairs++;
         resetCards();
-        if (matchedPairs === 10) {
+        if (matchedPairs === 8) {
             clearInterval(timeInterval);
+            gamesPlayed++;
+
+            if (seconds < bestTime) bestTime = seconds;
+            if (score > bestScore) bestScore = score;
+
+            saveStats();
+            updateStatsDisplay();
             alert('Congratulations! You matched all pairs!');
         }
     } else {
@@ -109,7 +143,6 @@ function checkForMatch() {
     }
 }
 
-// Reset first and second card
 function resetCards() {
     firstCard = null;
     secondCard = null;
@@ -117,7 +150,6 @@ function resetCards() {
     document.getElementById('score').textContent = `Score: ${score}`;
 }
 
-// Timer function
 function startTimer() {
     timeInterval = setInterval(() => {
         seconds++;
@@ -127,7 +159,6 @@ function startTimer() {
     }, 1000);
 }
 
-// Reset game
 function resetGame() {
     clearInterval(timeInterval);
     seconds = 0;
@@ -137,11 +168,11 @@ function resetGame() {
     secondCard = null;
     document.getElementById('score').textContent = 'Score: 0';
     document.getElementById('time').textContent = 'Time: 00:00';
-    startTimer();
 }
 
-// Reset button
 document.getElementById('reset-btn').addEventListener('click', initGame);
 
-// Start the game on page load
-window.addEventListener('DOMContentLoaded', initGame);
+window.addEventListener('DOMContentLoaded', () => {
+    loadStats();
+    initGame();
+});

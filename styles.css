@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Righteous&display=swap");
 
-:root{
-    --md-dark-color: #1d1d1d;
-    --dark-color: #171717;
-    --light-dark-color: #292929;
+:root {
+  --primary: #6c63ff;
+  --secondary: #ff6584;
+  --accent: #ffd166;
+  --background: #2a2d3e;
+  --card-bg: #3a3f55;
+  --text: #ffffff;
 }
 
 * {
@@ -12,218 +15,347 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Poppins", sans-serif;
   line-height: 1.6;
 }
 
 body {
-  background-color: var(--md-dark-color);
-  background-image: url('./img/audience-1868137_1280.jpg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-  color: #fff;
+  background-color: var(--background);
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(108, 99, 255, 0.1) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(255, 101, 132, 0.1) 0%,
+      transparent 20%
+    );
+  color: var(--text);
   padding: 0 40px;
 }
 
 header {
   position: sticky;
-  top: 0; 
+  top: 0;
   width: 100%;
   padding: 20px 0;
-  background-color: transparent;
-  z-index: 10;      /* Ensures the header stays on top of other content */
-  transition: background-color 0.3s ease;
+  background-color: rgba(42, 45, 62, 0.95);
+  z-index: 10;
+  border-bottom: 2px solid var(--primary);
 }
 
 .logo p {
-  font-size: 3rem;
-  font-weight: bold; 
-  color: #fff;
-  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff0000, 0 0 30px #870000;
+  font-family: "Righteous", cursive;
+  font-size: 3.5rem;
+  color: var(--text);
+  text-align: center;
 }
 
 .logo p span {
-  font-size: 3rem;
-  font-weight: bold; 
-  color: #190a05;
-  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff0000, 0 0 30px #870000;
+  color: var(--primary);
+  position: relative;
 }
 
-/* Game Info */
+.logo p span::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+}
 
-.game-container {
+.main-container {
+  display: flex;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stats-panel {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--primary);
+  width: 280px;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.stats-panel h2 {
+  color: var(--accent);
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: "Righteous", cursive;
+}
+
+.stats-content {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center; 
   gap: 20px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateX(5px);
+}
+
+.stat-icon {
+  font-size: 2rem;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-label {
+  color: var(--text);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.stat-value {
+  color: var(--accent);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.game-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
   min-height: 80vh;
+  padding: 20px;
 }
 
 .game-info {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 30px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .info {
-  background-color: #190a05;
-  padding: 15px 30px;
-  border-radius: 10px;
+  background: var(--card-bg);
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--primary);
 }
 
 .info p {
-  width: 100%;
   text-align: center;
   font-size: 1.2rem;
-  flex-shrink: 0;
-  margin: 10px 0;
-  color: #f0f0f0;
+  margin: 5px 0;
 }
 
 .info .label {
-  color: #870000;
-  font-size: 1.2rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 10px;
 }
 
 .info .value {
-  font-size: 1.2rem;
-  color: #f0f0f0;
-}
-
-#time, #score {
-  min-width: 120px; /* This ensures that the space for time and score is fixed */
+  color: var(--text);
+  font-weight: 500;
 }
 
 .game-btn {
-  background-color: #190a05;
-  color: #fff;
+  background: var(--primary);
+  color: var(--text);
   padding: 15px 30px;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
 }
 
 .game-btn:hover {
-  color: #fff;
-  background-color: #870000;
+  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 101, 132, 0.4);
 }
 
 .game-btn:active {
-  background-color: #190a05;
+  transform: translateY(1px);
 }
-
-
-
-/* Game Board */
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  justify-content: center;
-  grid-gap: 20px;
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  overflow: auto; /* Allow scrolling if content overflows */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  background: var(--card-bg);
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--primary);
 }
 
 .card {
-  width: 100px;
-  height: 100px;
-  background-image: linear-gradient(.85turn, #870000, #190a05);
+  width: 120px;
+  height: 120px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s ease;
   cursor: pointer;
   perspective: 1000px;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
 .card.flipped {
   transform: rotateY(180deg);
 }
 
-.card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* position: absolute; */
-  backface-visibility: hidden;
-}
-
-.front, .back {
+.front,
+.back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  border-radius: 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s ease;
+}
+
+.front {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  transform: rotateY(0deg);
+}
+
+.front::after {
+  content: "🎵";
+  font-size: 3rem;
 }
 
 .back {
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
   transform: rotateY(180deg);
 }
 
+.card.flipped .front {
+  transform: rotateY(180deg);
+}
 
+.card.flipped .back {
+  transform: rotateY(0deg);
+}
 
-/* Media Queries for Responsiveness */
-@media  (max-width: 768px) {
-  body {
-    padding: 0 20px;
-  }
-  header .logo p {
-      font-size: 1.8rem;
-  }
-  .game-info {
-      padding: 0 10px;
-  }
-  .logo p span {
-    font-size: 1.8rem;
-  }
-  .info {
-      padding: 10px 20px;
-      font-size: 1rem;
-  }
-  #time, #score {
-      font-size: 1rem;
-  }
-  .game-btn {
-      padding: 12px 24px;
-      font-size: 1rem; 
-  }
-  .game-container {
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  backface-visibility: hidden;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1024px) {
+  .main-container {
     flex-direction: column;
     align-items: center;
   }
-  .game-board {
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 15px;
-    padding: 15px;
+
+  .stats-panel {
+    width: 100%;
+    max-width: 600px;
+    position: static;
+    margin-bottom: 20px;
   }
-  .card {
-    width: 90px;
-    height: 90px;
+
+  .stats-content {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
   }
 }
 
-@media (max-width: 667px) {
-  .game-container {
+@media (max-width: 768px) {
+  body {
+    padding: 0 20px;
+  }
+
+  .main-container {
+    padding: 10px;
+  }
+
+  .stats-panel {
+    padding: 20px;
+  }
+
+  .stats-content {
+    flex-direction: column;
+  }
+
+  .stat-item {
+    width: 100%;
+  }
+
+  .logo p {
+    font-size: 2.5rem;
+  }
+
+  .game-info {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
   }
+
+  .info {
+    width: 100%;
+    max-width: 300px;
+  }
+
   .game-board {
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 15px;
-    padding: 15px;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .card {
+    width: 90px;
+    height: 90px;
   }
 }
 
@@ -231,29 +363,31 @@ header {
   body {
     padding: 0 15px;
   }
-  header .logo p {
-      font-size: 1.5rem;
+
+  .logo p {
+    font-size: 2rem;
   }
-  .logo p span {
-    font-size: 1.5rem;
-  }
+
   .info {
-      flex-direction: column; /* Stack time and score vertically */
-      text-align: left;
-      padding: 10px 15px;
-      font-size: 0.9rem; /* Smaller font for mobile */
+    padding: 15px 20px;
   }
+
   .game-btn {
-      padding: 10px 20px;
-      font-size: 0.9rem; /* Smaller button for mobile */
+    padding: 12px 24px;
+    font-size: 1rem;
   }
+
   .game-board {
-    margin-top: 15px;
     padding: 15px;
+    gap: 10px;
   }
+
   .card {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
+  }
+
+  .front::after {
+    font-size: 2rem;
   }
 }
-
